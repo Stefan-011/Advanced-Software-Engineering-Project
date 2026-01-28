@@ -1,3 +1,3 @@
 export const RouterConstants = {
-  AboutPage: "/about-page",
+  AboutPage: "about-page",
 };

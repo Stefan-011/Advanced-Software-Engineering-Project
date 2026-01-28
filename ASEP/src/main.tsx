@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { ThemeProvider } from "@mui/material";
-import { DefaultTheme } from "styled-components";
 import RouterProvider from "./router/RouterProvider.tsx";
+import { DefaultTheme } from "@mui/styles";
 const theme: DefaultTheme = {
   colors: {
     primary: "#0070f3",

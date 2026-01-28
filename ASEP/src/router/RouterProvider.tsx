@@ -4,6 +4,7 @@ import React, { ReactNode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RouterConstants } from "./RoutesConstants";
 import TestPage from "../features/test-page.tsx/TestPage";
+import MainLayout from "../MainLayout";
 
 // import Home from "../pages/Home";
 // import About from "../pages/About";
@@ -21,8 +22,10 @@ const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={RouterConstants.AboutPage} element={<About />} />
-        <Route path={"/test-page"} element={<TestPage />} />
+        <Route path={"/"} element={<MainLayout />}>
+          <Route path={RouterConstants.AboutPage} element={<About />} />
+          <Route path={"test-page"} element={<TestPage />} />
+        </Route>
       </Routes>
       {children}
     </BrowserRouter>
