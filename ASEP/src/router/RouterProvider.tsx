@@ -17,6 +17,14 @@ interface RouterProviderProps {
 const About = React.lazy(
   () => import("../features/about-page/component/AboutPage"),
 );
+const SleepNow = React.lazy(() => import("../features/sleep-now/SleepNow"));
+
+const SleepPicker = React.lazy(
+  () => import("../features/sleep-picker/SleepPicker"),
+);
+const WakeUpPicker = React.lazy(
+  () => import("../features/sleep-picker/WakeUpPicker"),
+);
 
 const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
   return (
@@ -25,6 +33,12 @@ const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
         <Route path={"/"} element={<MainLayout />}>
           <Route path={RouterConstants.AboutPage} element={<About />} />
           <Route path={"test-page"} element={<TestPage />} />
+          <Route path={RouterConstants.SleepNow} element={<SleepNow />} />
+          <Route
+            path={RouterConstants.WakeUpPicker}
+            element={<WakeUpPicker />}
+          />
+          <Route path={RouterConstants.SleepPicker} element={<SleepPicker />} />
         </Route>
       </Routes>
       {children}

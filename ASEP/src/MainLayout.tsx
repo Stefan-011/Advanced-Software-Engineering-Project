@@ -1,6 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { RouterConstants } from "./router/RoutesConstants";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { SideBar } from "./features/sidebar/components/Sidebar";
 import Grid from "@mui/system/Unstable_Grid";
 import Header from "./features/header/Header";
@@ -14,7 +14,7 @@ const MainLayout = () => {
     <Box>
       <Button
         onClick={() => {
-          navigate(RouterConstants.AboutPage);
+          navigate(RouterConstants.WakeUpPicker);
         }}
       >
         ROute
@@ -24,7 +24,10 @@ const MainLayout = () => {
         <Header></Header>
       </Grid>
       {/* CONTENT */}
-      <Grid container sx={{ bgcolor: "red", height: "100vh", width: "98vw" }}>
+      <Grid
+        container
+        sx={{ bgcolor: "rgba(0,255,0,0.5)", height: "100vh", width: "98vw" }}
+      >
         <Grid xs={1}>
           <SideBar />
         </Grid>
