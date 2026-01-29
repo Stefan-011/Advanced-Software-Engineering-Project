@@ -3,6 +3,7 @@ import { RouterConstants } from "./router/RoutesConstants";
 import { Box, Button, Typography } from "@mui/material";
 import { SideBar } from "./features/sidebar/components/Sidebar";
 import Grid from "@mui/system/Unstable_Grid";
+import Header from "./features/header/Header";
 
 const MainLayout = () => {
   const navigate = useNavigate();
@@ -19,8 +20,8 @@ const MainLayout = () => {
         ROute
       </Button>
       {/* HEAD */}
-      <Grid>
-        <Grid></Grid>
+      <Grid width={"100%"} height={30}>
+        <Header></Header>
       </Grid>
       {/* CONTENT */}
       <Grid container sx={{ bgcolor: "red", height: "100vh", width: "98vw" }}>

@@ -3,8 +3,8 @@
 import React, { ReactNode } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RouterConstants } from "./RoutesConstants";
-import TestPage from "../features/test-page.tsx/TestPage";
 import MainLayout from "../MainLayout";
+import TestPage from "../features/test-page/TestPage";
 
 // import Home from "../pages/Home";
 // import About from "../pages/About";
