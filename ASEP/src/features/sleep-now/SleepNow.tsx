@@ -90,11 +90,6 @@ const SleepNow = () => {
             <RefreshIcon />
           </Button>
         </Grid>
-        <Grid>
-          <Button size="large" variant="contained">
-            Calculate
-          </Button>
-        </Grid>
       </Stack>
       <Grid>
         <TimeTable

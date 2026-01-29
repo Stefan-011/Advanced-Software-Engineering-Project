@@ -1,4 +1,4 @@
-import { Box, Stack, Grid, Button } from "@mui/material";
+import { Box, Stack, Grid } from "@mui/material";
 import TimeTable from "../../shared/components/time-table/TimeTable";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -68,15 +68,7 @@ const SleepPicker = () => {
             />
           </LocalizationProvider>
         </Grid>
-        <Grid>
-          <Button
-            size="large"
-            variant="contained"
-            sx={{ mt: 2, textAlign: "center" }}
-          >
-            Calculate
-          </Button>
-        </Grid>
+        <Grid></Grid>
       </Stack>
 
       <Grid>
