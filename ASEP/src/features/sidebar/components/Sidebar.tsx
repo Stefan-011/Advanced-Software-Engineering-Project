@@ -5,7 +5,7 @@ export const SideBar = () => {
   return (
     <Stack
       height={"100vh"}
-      width={160}
+      width={"100%"}
       bgcolor={"brown"}
       display={"flex"}
       flexDirection={"column"}
