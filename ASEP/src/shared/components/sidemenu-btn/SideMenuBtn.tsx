@@ -32,7 +32,7 @@ export const SideMenuBtn = ({
       }}
     >
       {icon}
-      {label}
+      {/* {label} */}
     </Box>
   );
 };

@@ -22,13 +22,14 @@ const SleepNow = () => {
   );
 
   const GetCurrentTime = () => {
+    const local_now = new Date();
     return isPmAm
-      ? now.toLocaleTimeString("en-US", {
+      ? local_now.toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: true,
         })
-      : now.toLocaleTimeString("en-GB", {
+      : local_now.toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
@@ -36,7 +37,7 @@ const SleepNow = () => {
   };
 
   const HandleChangeState = () => {
-    SetCurrentTime(GetCurrentTime);
+    SetCurrentTime(GetCurrentTime());
   };
 
   return (
@@ -85,7 +86,7 @@ const SleepNow = () => {
               alignItem: "center",
               justifyContent: "center",
             }}
-            onClick={HandleChangeState}
+            onClick={() => HandleChangeState()}
           >
             <RefreshIcon />
           </Button>

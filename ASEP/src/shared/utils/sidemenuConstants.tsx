@@ -1,5 +1,7 @@
 import InfoIcon from "@mui/icons-material/Info";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import UpdateIcon from "@mui/icons-material/Update";
+import RestoreIcon from "@mui/icons-material/Restore";
 export const sideMenuConstants: Record<string, any>[] = [
   {
     name: "",
@@ -12,13 +14,13 @@ export const sideMenuConstants: Record<string, any>[] = [
     icon: <AccessAlarmIcon />,
   },
   {
-    name: "Wake up",
+    name: "Go to bed",
     route: "sleep-picker",
-    icon: <AccessAlarmIcon />,
+    icon: <UpdateIcon />,
   },
   {
-    name: "Go to bed",
+    name: "Wake up",
     route: "wakeup",
-    icon: <AccessAlarmIcon />,
+    icon: <RestoreIcon />,
   },
 ];

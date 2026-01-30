@@ -11,9 +11,9 @@ const MainLayout = () => {
   return (
     <Box>
       {/* HEAD */}
-      <Grid width={"100%"} height={30}>
-        {/* <Header></Header> */}
-      </Grid>
+      {/* <Grid width={"100%"} height={30}>
+        <Header></Header>
+      </Grid> */}
       {/* CONTENT */}
       <Grid
         container
