@@ -1,6 +1,6 @@
 export const RouterConstants = {
-  AboutPage: "about-page",
-  SleepNow: "sleep-now",
+  AboutPage: "about",
+  SleepNow: "now",
   SleepPicker: "sleep-picker",
-  WakeUpPicker: "wakeup-picker",
+  WakeUpPicker: "wakeup",
 };

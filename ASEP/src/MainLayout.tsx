@@ -7,21 +7,12 @@ import Header from "./features/header/Header";
 
 const MainLayout = () => {
   const navigate = useNavigate();
-  // navigate(RouterConstants.AboutPage);
-  // navigate("test-page");
-  console.log("mainlayou");
+
   return (
     <Box>
-      <Button
-        onClick={() => {
-          navigate(RouterConstants.WakeUpPicker);
-        }}
-      >
-        ROute
-      </Button>
       {/* HEAD */}
       <Grid width={"100%"} height={30}>
-        <Header></Header>
+        {/* <Header></Header> */}
       </Grid>
       {/* CONTENT */}
       <Grid
