@@ -9,38 +9,34 @@ Stage N1 represents light, transitional sleep as brain activity slows. Stage N2 
 The authors also describe the neurochemical mechanisms that regulate sleep and wake transitions, highlighting how different neurotransmitter systems promote either arousal or sleep. They note that sleep architecture changes across the lifespan and can be influenced by aging, mental health conditions, neurological injury, and disruptions to circadian rhythms. Overall, the article emphasizes that sleep is a dynamic and essential physiological process, and that understanding sleep stages is fundamental to evaluating normal sleep function and sleep-related disorders.`;
   const Citation = "https://www.ncbi.nlm.nih.gov/books/NBK526132/";
   return (
-    <>
-      <Stack
-        sx={{ textAlign: "justify" }}
-        height={"100%"}
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"space-around"}
+    <Stack
+      sx={{ textAlign: "justify" }}
+      height={"100%"}
+      width={"90%"}
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-around"}
+      alignItems={"center"}
+    >
+      <Typography variant="h3" textAlign={"center"} sx={{ p: 0, m: 0 }}>
+        {Title}
+      </Typography>
+      <Divider sx={{ mt: 5 }}></Divider>
+      <Typography variant="body1">{Text}</Typography>
+      <Divider sx={{ mt: 5 }}></Divider>
+      <Typography variant="body1">{Research}</Typography>
+      <Divider sx={{ mt: 5 }}></Divider>
+      <Typography
+        component={"a"}
+        variant="body1"
+        textAlign={"justify"}
+        href="https://www.ncbi.nlm.nih.gov/books/NBK526132/"
+        target="_blank" // opens in a new tab
+        rel="noopener noreferrer" // security best practice
       >
-        <Typography variant="h3" textAlign={"center"}>
-          {Title}
-        </Typography>
-        <Divider sx={{ mt: 5 }}></Divider>
-        <Typography variant="body1" px={5}>
-          {Text}
-        </Typography>
-        <Divider sx={{ mt: 5 }}></Divider>
-        <Typography variant="body1" px={5}>
-          {Research}
-        </Typography>
-        <Divider sx={{ mt: 5 }}></Divider>
-        <Typography
-          component={"a"}
-          variant="body1"
-          textAlign={"justify"}
-          href="https://www.ncbi.nlm.nih.gov/books/NBK526132/"
-          target="_blank" // opens in a new tab
-          rel="noopener noreferrer" // security best practice
-        >
-          {Citation}
-        </Typography>
-      </Stack>
-    </>
+        {Citation}
+      </Typography>
+    </Stack>
   );
 };
 

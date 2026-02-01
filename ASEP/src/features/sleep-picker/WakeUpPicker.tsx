@@ -2,13 +2,15 @@ import { Box, Stack, Grid } from "@mui/material";
 import TimeTable from "../../shared/components/time-table/TimeTable";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { calculateBedtimes } from "../../shared/utils/calculateBedTimes";
+import { SettingsContext } from "../../contexts/SettingsProvider";
 
 const WakeUpPicker = () => {
   const now = new Date();
   const isPmAm = false;
   const TimePickerLabel = "I want to wake up at";
+  const { TimeToSleep, SleepCycle, ThemeColor } = useContext(SettingsContext)!;
 
   const [time, SetTime] = useState<string>(
     isPmAm
@@ -24,7 +26,7 @@ const WakeUpPicker = () => {
         }),
   );
   const GetTimeData = () => {
-    return calculateBedtimes(time, isPmAm);
+    return calculateBedtimes(time, isPmAm, SleepCycle, TimeToSleep);
   };
 
   return (
@@ -37,7 +39,6 @@ const WakeUpPicker = () => {
         justifyContent: "start",
         alignItems: "center",
         flexDirection: "column",
-        py: 10,
       }}
     >
       <Stack
@@ -64,6 +65,46 @@ const WakeUpPicker = () => {
               label={TimePickerLabel}
               onChange={(newValue) => SetTime(newValue?.format("HH:mm") || "")}
               ampm={isPmAm}
+              slotProps={{
+                textField: {
+                  sx: {
+                    "& .MuiPickersSectionList-root": {
+                      color: ThemeColor.textColor,
+                    },
+                    bgcolor: ThemeColor.lighter, // background color for whole TextField
+                    // Label color
+                    "& .MuiInputLabel-root": {
+                      color: ThemeColor.textColor,
+                      "&.Mui-focused": {
+                        color: ThemeColor.textColor, // same color when focused
+                      },
+                    },
+                    // Input text color
+                    "& .MuiInputBase-input": {
+                      color: "chartreuse",
+                      fontWeight: "bold",
+                      borderColor: "red",
+                      "&.Mui-focused": {},
+                    },
+                    // Border colors
+                    "& .MuiOutlinedInput-root": {
+                      borderColor: "red",
+                      "& fieldset": {
+                        color: "white",
+                        borderColor: "#20f704",
+                      },
+                      "&.Mui-focused fieldset": {
+                        color: "red",
+                        borderColor: "orange",
+                      },
+                    },
+                    // Icon color
+                    "& .MuiSvgIcon-root": {
+                      color: ThemeColor.textColor,
+                    },
+                  },
+                },
+              }}
             />
           </LocalizationProvider>
         </Grid>
@@ -77,6 +118,7 @@ const WakeUpPicker = () => {
             currentTime={time}
             isAmPm={isPmAm}
             bedTime={true}
+            theme={ThemeColor}
           ></TimeTable>
         )}
       </Grid>

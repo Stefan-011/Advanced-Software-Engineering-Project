@@ -1,19 +1,17 @@
 import { Stack } from "@mui/material";
 import { SideMenuBtn } from "../../../shared/components/sidemenu-btn/SideMenuBtn";
-import { RouterConstants } from "../../../router/RoutesConstants";
-import { sideMenuConstants } from "../../../shared/utils/sidemenuConstants";
 
-interface sidebarData {
-  name: string;
-  route: string;
-}
+import { sideMenuConstants } from "../../../shared/utils/sidemenuConstants";
+import { SettingsContext } from "../../../contexts/SettingsProvider";
+import { useContext } from "react";
 
 export const SideBar = () => {
+  const { ThemeColor } = useContext(SettingsContext)!;
   return (
     <Stack
-      height={"100vh"}
+      height={"100%"}
       width={"100%"}
-      bgcolor={"brown"}
+      bgcolor={ThemeColor.darker}
       display={"flex"}
       flexDirection={"column"}
       alignContent={"center"}
@@ -23,15 +21,14 @@ export const SideBar = () => {
         display={"flex"}
         flexDirection={"column"}
         alignContent={"center"}
-        bgcolor={"green"}
         height={"90%"}
       >
         {sideMenuConstants.map((menu) => {
           return (
             <SideMenuBtn
-              label={menu.name}
               route={menu.route}
               icon={menu.icon}
+              theme={ThemeColor}
             ></SideMenuBtn>
           );
         })}

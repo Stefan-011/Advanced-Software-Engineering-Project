@@ -1,12 +1,19 @@
-export function calculateBedtimes(wakeUpTime: string, isPmAm: boolean) {
+export function calculateBedtimes(
+  wakeUpTime: string,
+  isPmAm: boolean,
+  cycleMinutes: number,
+  TimeToSleep: number,
+) {
   return isPmAm
-    ? calculateBedtimes12(wakeUpTime)
-    : calculateBedtimes24(wakeUpTime);
+    ? calculateBedtimes12(wakeUpTime, cycleMinutes, TimeToSleep)
+    : calculateBedtimes24(wakeUpTime, cycleMinutes, TimeToSleep);
 }
 
-function calculateBedtimes24(wakeUpTime: string): string[] {
-  const sleepCycle = 90; // minutes
-  const timeToFallAsleep = 15; // minutes
+function calculateBedtimes24(
+  wakeUpTime: string,
+  sleepCycle: number,
+  timeToFallAsleep: number,
+): string[] {
   const numBedtimes = 10;
 
   const toMinutes = (time: string): number => {
@@ -34,9 +41,11 @@ function calculateBedtimes24(wakeUpTime: string): string[] {
   return bedtimes;
 }
 
-function calculateBedtimes12(wakeUpTime: string): string[] {
-  const sleepCycle = 90; // minutes
-  const timeToFallAsleep = 15; // minutes
+function calculateBedtimes12(
+  wakeUpTime: string,
+  sleepCycle: number,
+  timeToFallAsleep: number,
+): string[] {
   const numBedtimes = 10;
 
   const toMinutes = (time: string): number => {

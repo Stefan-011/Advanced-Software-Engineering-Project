@@ -2,22 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { ThemeProvider } from "@mui/material";
 import RouterProvider from "./router/RouterProvider.tsx";
-import { DefaultTheme } from "@mui/styles";
-const theme: DefaultTheme = {
-  colors: {
-    primary: "#0070f3",
-    secondary: "#1db954",
-  },
-};
+import { SettingsProvider } from "./contexts/SettingsProvider.tsx";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider>
-      <ThemeProvider theme={theme}>
+    <SettingsProvider>
+      <RouterProvider>
         <App />
-      </ThemeProvider>
-    </RouterProvider>
+      </RouterProvider>
+    </SettingsProvider>
   </React.StrictMode>,
 );
 

@@ -1,12 +1,13 @@
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import TimeTable from "../../shared/components/time-table/TimeTable";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CalculateWakeUpTime from "../../shared/utils/CalculateWakeUpTime";
+import { SettingsContext } from "../../contexts/SettingsProvider";
 const SleepNow = () => {
+  const { TimeToSleep, SleepCycle, ThemeColor } = useContext(SettingsContext)!;
   const now = new Date();
   const isPmAm = false;
-
   const [CurrentTime, SetCurrentTime] = useState<string>(
     isPmAm
       ? now.toLocaleTimeString("en-US", {
@@ -45,18 +46,16 @@ const SleepNow = () => {
       sx={{
         width: "100%",
         height: "100%",
-        // bgcolor: "red",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
         flexDirection: "column",
-        py: 10,
       }}
     >
       <Stack
         sx={{
           width: "100%",
-          height: "100",
+          height: "100%",
           my: 5,
           display: "flex",
           justifyContent: "center",
@@ -72,7 +71,7 @@ const SleepNow = () => {
             alignItem: "center",
           }}
         >
-          <Typography variant="h2" ml={3}>
+          <Typography variant="h2" ml={3} color={ThemeColor.textColor}>
             {CurrentTime}
           </Typography>
           <Button
@@ -85,6 +84,7 @@ const SleepNow = () => {
               display: "flex",
               alignItem: "center",
               justifyContent: "center",
+              color: ThemeColor.textColor,
             }}
             onClick={() => HandleChangeState()}
           >
@@ -94,9 +94,15 @@ const SleepNow = () => {
       </Stack>
       <Grid>
         <TimeTable
-          data={CalculateWakeUpTime(CurrentTime, isPmAm)}
+          data={CalculateWakeUpTime(
+            CurrentTime,
+            isPmAm,
+            SleepCycle,
+            TimeToSleep,
+          )}
           currentTime={CurrentTime}
           isAmPm={isPmAm}
+          theme={ThemeColor}
         ></TimeTable>
       </Grid>
     </Box>

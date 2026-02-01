@@ -1,13 +1,12 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { RouterConstants } from "./router/RoutesConstants";
-import { Box, Button } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 import { SideBar } from "./features/sidebar/components/Sidebar";
 import Grid from "@mui/system/Unstable_Grid";
-import Header from "./features/header/Header";
+import { SettingsContext } from "./contexts/SettingsProvider";
+import { useContext } from "react";
 
 const MainLayout = () => {
-  const navigate = useNavigate();
-
+  const { ThemeColor } = useContext(SettingsContext)!;
   return (
     <Box>
       {/* HEAD */}
@@ -15,15 +14,18 @@ const MainLayout = () => {
         <Header></Header>
       </Grid> */}
       {/* CONTENT */}
-      <Grid
-        container
-        sx={{ bgcolor: "rgba(0,255,0,0.5)", height: "100vh", width: "98vw" }}
-      >
-        <Grid xs={1}>
+      <Grid container sx={{ height: "100vh", width: "100vw" }}>
+        <Grid xs={0.5}>
           <SideBar />
         </Grid>
 
-        <Grid xs={11} sx={{ bgcolor: "#353539ff" }}>
+        <Grid
+          xs={11.5}
+          sx={{ bgcolor: ThemeColor.original, overflowY: "auto" }}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
           <Outlet />
         </Grid>
       </Grid>

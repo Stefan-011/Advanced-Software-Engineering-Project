@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { ThemeColor } from "../../../contexts/SettingsProvider";
 
 export const SideMenuBtn = ({
-  label,
   route,
   icon,
+  theme,
 }: {
-  label: string;
   route: string;
   icon: any;
+  theme: ThemeColor;
 }) => {
-  console.log(icon);
   const navigate = useNavigate();
   return (
     <Box
@@ -26,6 +27,7 @@ export const SideMenuBtn = ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        color: theme.textColor,
       }}
       onClick={() => {
         navigate(route);

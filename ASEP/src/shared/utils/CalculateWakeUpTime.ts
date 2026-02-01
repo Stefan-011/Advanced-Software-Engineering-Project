@@ -1,20 +1,28 @@
-function CalculateWakeUpTime(currentTime: string, isAmPm: boolean) {
+function CalculateWakeUpTime(
+  currentTime: string,
+  isAmPm: boolean,
+  cycleMinutes: number,
+  TimeToSleep: number,
+) {
   return isAmPm
-    ? calculateSleepTimes12h(currentTime)
-    : calculateSleepTimes24(currentTime);
+    ? calculateSleepTimes12h(currentTime, cycleMinutes, TimeToSleep)
+    : calculateSleepTimes24(currentTime, cycleMinutes, TimeToSleep);
 }
 
 // 24-hour format
-function calculateSleepTimes24(bedtime: string): string[] {
+function calculateSleepTimes24(
+  bedtime: string,
+  cycleMinutes: number,
+  TimeToSleep: number,
+): string[] {
   // Convert bedtime string "HH:MM" to Date object (today's date)
   const [hours, minutes] = bedtime.split(":").map(Number);
   const bedtimeDate = new Date();
   bedtimeDate.setHours(hours, minutes, 0, 0);
 
   // Time to fall asleep (15 minutes)
-  const sleepStart = new Date(bedtimeDate.getTime() + 15 * 60 * 1000);
+  const sleepStart = new Date(bedtimeDate.getTime() + TimeToSleep * 60 * 1000);
 
-  const cycleMinutes = 90;
   const wakeUpTimes: string[] = [];
 
   // Calculate wake-up times for 4 to 10 cycles
@@ -31,16 +39,19 @@ function calculateSleepTimes24(bedtime: string): string[] {
 }
 
 // 12-hour format
-function calculateSleepTimes12h(bedtime: string): string[] {
+function calculateSleepTimes12h(
+  bedtime: string,
+  cycleMinutes: number,
+  TimeToSleep: number,
+): string[] {
   // Convert bedtime string "HH:MM" to Date object (today's date)
   const [hours, minutes] = bedtime.split(":").map(Number);
   const bedtimeDate = new Date();
   bedtimeDate.setHours(hours, minutes, 0, 0);
 
   // Time to fall asleep (15 minutes)
-  const sleepStart = new Date(bedtimeDate.getTime() + 15 * 60 * 1000);
+  const sleepStart = new Date(bedtimeDate.getTime() + TimeToSleep * 60 * 1000);
 
-  const cycleMinutes = 90;
   const wakeUpTimes: string[] = [];
 
   // Helper to format in 12-hour format
