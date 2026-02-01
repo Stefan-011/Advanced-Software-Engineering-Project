@@ -1,8 +1,8 @@
 export function calculateBedtimes(
   wakeUpTime: string,
   isPmAm: boolean,
-  cycleMinutes: number,
-  TimeToSleep: number,
+  cycleMinutes: number = 90,
+  TimeToSleep: number = 15,
 ) {
   return isPmAm
     ? calculateBedtimes12(wakeUpTime, cycleMinutes, TimeToSleep)

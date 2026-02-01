@@ -23,7 +23,6 @@ const TimeTable = ({
       ? findTimeDifference(time, currentTime, isAmPm)
       : findTimeDifference(currentTime, time, isAmPm),
   }));
-  console.log(data);
   const columns: GridColDef[] = [
     {
       field: "Cycles",

@@ -1,8 +1,8 @@
 function CalculateWakeUpTime(
   currentTime: string,
   isAmPm: boolean,
-  cycleMinutes: number,
-  TimeToSleep: number,
+  cycleMinutes: number = 90,
+  TimeToSleep: number = 15,
 ) {
   return isAmPm
     ? calculateSleepTimes12h(currentTime, cycleMinutes, TimeToSleep)

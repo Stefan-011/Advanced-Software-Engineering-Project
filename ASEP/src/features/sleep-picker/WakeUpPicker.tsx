@@ -1,4 +1,4 @@
-import { Box, Stack, Grid } from "@mui/material";
+import { Box, Stack, Grid, Typography } from "@mui/material";
 import TimeTable from "../../shared/components/time-table/TimeTable";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -51,6 +51,9 @@ const WakeUpPicker = () => {
           alignItems: "center",
         }}
       >
+        <Typography variant="h2" color={ThemeColor.textColor} mb={5}>
+          WAKE UP TIME
+        </Typography>
         <Grid
           sx={{
             width: "100%",

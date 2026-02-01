@@ -8,6 +8,7 @@ const SleepNow = () => {
   const { TimeToSleep, SleepCycle, ThemeColor } = useContext(SettingsContext)!;
   const now = new Date();
   const isPmAm = false;
+
   const [CurrentTime, SetCurrentTime] = useState<string>(
     isPmAm
       ? now.toLocaleTimeString("en-US", {
@@ -55,13 +56,17 @@ const SleepNow = () => {
       <Stack
         sx={{
           width: "100%",
-          height: "100%",
+
           my: 5,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
+        {" "}
+        <Typography variant="h2" ml={3} color={ThemeColor.textColor} mb={5}>
+          SLEEP NOW
+        </Typography>
         <Grid
           sx={{
             width: "100%",
@@ -71,6 +76,7 @@ const SleepNow = () => {
             alignItem: "center",
           }}
         >
+          {" "}
           <Typography variant="h2" ml={3} color={ThemeColor.textColor}>
             {CurrentTime}
           </Typography>
