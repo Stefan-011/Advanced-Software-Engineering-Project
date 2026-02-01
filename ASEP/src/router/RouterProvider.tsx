@@ -22,8 +22,12 @@ const SleepNow = React.lazy(() => import("../features/sleep-now/SleepNow"));
 const SleepPicker = React.lazy(
   () => import("../features/sleep-picker/SleepPicker"),
 );
+
 const WakeUpPicker = React.lazy(
   () => import("../features/sleep-picker/WakeUpPicker"),
+);
+const SettingsPage = React.lazy(
+  () => import("../features/settings-page/components/settingsPage"),
 );
 
 const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
@@ -39,6 +43,7 @@ const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
             element={<WakeUpPicker />}
           />
           <Route path={RouterConstants.SleepPicker} element={<SleepPicker />} />
+          <Route path={RouterConstants.Settings} element={<SettingsPage />} />
         </Route>
       </Routes>
       {children}

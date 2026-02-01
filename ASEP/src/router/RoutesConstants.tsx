@@ -3,4 +3,5 @@ export const RouterConstants = {
   SleepNow: "now",
   SleepPicker: "sleep-picker",
   WakeUpPicker: "wakeup",
+  Settings: "settings",
 };

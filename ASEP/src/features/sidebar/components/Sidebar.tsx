@@ -4,6 +4,8 @@ import { SideMenuBtn } from "../../../shared/components/sidemenu-btn/SideMenuBtn
 import { sideMenuConstants } from "../../../shared/utils/sidemenuConstants";
 import { SettingsContext } from "../../../contexts/SettingsProvider";
 import { useContext } from "react";
+import { RouterConstants } from "../../../router/RoutesConstants";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 export const SideBar = () => {
   const { ThemeColor } = useContext(SettingsContext)!;
@@ -33,9 +35,13 @@ export const SideBar = () => {
           );
         })}
       </Stack>
-      {/* <Stack height={"10%"} justifyContent={"end"}>
-        <SideMenuBtn label="OPT3" route="/"></SideMenuBtn>
-      </Stack> */}
+      <Stack height={"10%"} justifyContent={"end"}>
+        <SideMenuBtn
+          route={RouterConstants.Settings}
+          icon={<SettingsIcon></SettingsIcon>}
+          theme={ThemeColor}
+        ></SideMenuBtn>
+      </Stack>
     </Stack>
   );
 };
