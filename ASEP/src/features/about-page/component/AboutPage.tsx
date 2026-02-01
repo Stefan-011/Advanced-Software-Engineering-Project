@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Divider, Stack, Typography } from "@mui/material";
+import { useContext } from "react";
+import { SettingsContext } from "../../../contexts/SettingsProvider";
 
 const AboutPage = () => {
+  const { ThemeColor } = useContext(SettingsContext)!;
   const Title: string = "About this app";
   const Text: string = `This app identifies the optimal time for key activities by aligning them with human physiology, sleep stages, and scientific research. It analyzes sleep cycles, including deep and REM sleep, along with circadian rhythms and recovery patterns to understand when the body is most ready to wake, focus, perform, or rest. Instead of relying on fixed clock times, the app adapts recommendations to how the body naturally functions. The guidance is based on peer-reviewed research from sleep science, neuroscience, and chronobiology. By working with biological rhythms rather than against them, the app helps improve sleep quality, energy levels, focus, and overall recovery.`;
   const Research: string = `The article "Physiology, Sleep Stages" by Aakash K. Patel, Vamsi Reddy, Karlie R. Shumway, and John F. Araujo explains how human sleep is organized and regulated through distinct physiological stages. Sleep is divided into two main phases: non-rapid eye movement (NREM) sleep and rapid eye movement (REM) sleep. NREM sleep includes three stages—N1, N2, and N3—each defined by specific brain activity, muscle tone, and levels of consciousness. Over the course of a typical night, the body cycles through these stages approximately four to six times, with each cycle lasting about 90 minutes.
@@ -12,13 +15,14 @@ The authors also describe the neurochemical mechanisms that regulate sleep and w
     <Stack
       sx={{ textAlign: "justify" }}
       height={"100%"}
-      width={"90%"}
+      // maxWidth={"50%"}
       display={"flex"}
       flexDirection={"column"}
-      justifyContent={"space-around"}
       alignItems={"center"}
+      px={6}
+      color={ThemeColor.textColor}
     >
-      <Typography variant="h3" textAlign={"center"} sx={{ p: 0, m: 0 }}>
+      <Typography variant="h3" textAlign={"center"} sx={{ p: 0 }} mt={2}>
         {Title}
       </Typography>
       <Divider sx={{ mt: 5 }}></Divider>
@@ -33,6 +37,7 @@ The authors also describe the neurochemical mechanisms that regulate sleep and w
         href="https://www.ncbi.nlm.nih.gov/books/NBK526132/"
         target="_blank" // opens in a new tab
         rel="noopener noreferrer" // security best practice
+        sx={{ color: ThemeColor.textColor, textDecoration: "none" }}
       >
         {Citation}
       </Typography>

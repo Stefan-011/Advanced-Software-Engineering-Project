@@ -28,6 +28,7 @@ export const SideBar = () => {
         {sideMenuConstants.map((menu) => {
           return (
             <SideMenuBtn
+              key={menu.route}
               route={menu.route}
               icon={menu.icon}
               theme={ThemeColor}

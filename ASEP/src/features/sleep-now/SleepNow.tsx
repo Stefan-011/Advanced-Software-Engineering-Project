@@ -56,7 +56,6 @@ const SleepNow = () => {
       <Stack
         sx={{
           width: "100%",
-
           my: 5,
           display: "flex",
           justifyContent: "center",
@@ -64,7 +63,7 @@ const SleepNow = () => {
         }}
       >
         {" "}
-        <Typography variant="h2" ml={3} color={ThemeColor.textColor} mb={5}>
+        <Typography variant="h2" ml={3} color={ThemeColor.textColor} mb={3}>
           SLEEP NOW
         </Typography>
         <Grid
@@ -76,7 +75,6 @@ const SleepNow = () => {
             alignItem: "center",
           }}
         >
-          {" "}
           <Typography variant="h2" ml={3} color={ThemeColor.textColor}>
             {CurrentTime}
           </Typography>

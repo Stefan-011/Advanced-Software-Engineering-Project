@@ -88,7 +88,7 @@ const SettingsPage = () => {
           handleSubmit();
         }}
       >
-        Save Changes
+        {isChanged && "Save Changes"}
       </Button>
       {SettingsItems.map((item) => (
         <Box
