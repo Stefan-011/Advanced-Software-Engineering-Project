@@ -1,3 +1,3 @@
 TimeToSleep: 15
 SleepCycle: 90
-ThemeColor: #373434
+ThemeColor: #292c56

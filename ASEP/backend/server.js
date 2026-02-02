@@ -5,9 +5,15 @@ import cors from "cors";
 import { fileURLToPath } from "url";
 
 const app = express();
-const port = 3000;
+const port = 8080;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or '*' for all origins
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  }),
+);
 
 // Middleware to parse JSON body if you want to send POST requests later
 app.use(express.json());

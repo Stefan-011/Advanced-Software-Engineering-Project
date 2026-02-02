@@ -41,7 +41,7 @@ const SettingsPage = () => {
       }).toString();
 
       const response = await fetch(
-        `http://localhost:3000/writefile?${queryParams}`,
+        `http://localhost:8080/writefile?${queryParams}`,
       );
 
       if (!response.ok) {

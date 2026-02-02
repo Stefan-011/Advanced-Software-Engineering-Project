@@ -26,7 +26,7 @@ export const SettingsProvider = ({
 }) => {
   const fetchFile = async () => {
     try {
-      const res = await fetch("http://localhost:3000/readfile");
+      const res = await fetch("http://localhost:8080/readfile");
       const data = await res.json();
       const _settings = convertFileToSettings(data.content);
       setupSettings(_settings);

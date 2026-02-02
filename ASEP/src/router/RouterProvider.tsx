@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // src/router/RouterProvider.tsx
 import React, { ReactNode } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import { RouterConstants } from "./RoutesConstants";
 import MainLayout from "../MainLayout";
 import TestPage from "../features/test-page/TestPage";
@@ -32,7 +32,7 @@ const SettingsPage = React.lazy(
 
 const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path={"/"} element={<MainLayout />}>
           <Route path={RouterConstants.AboutPage} element={<About />} />
@@ -47,7 +47,7 @@ const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
         </Route>
       </Routes>
       {children}
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
