@@ -19,13 +19,16 @@ let win: BrowserWindow | null;
 
 function createWindow() {
   const iconPath = VITE_DEV_SERVER_URL
-    ? path.join(process.env.VITE_PUBLIC, "electron-vite.svg")
-    : path.join(RENDERER_DIST, "electron-vite.svg");
+    ? path.join(process.env.VITE_PUBLIC, "logo.png")
+    : path.join(RENDERER_DIST, "logo.png");
 
   win = new BrowserWindow({
     icon: iconPath,
+    minHeight: 800,
+    minWidth: 600,
+    // autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "preload.mjs"),
       nodeIntegration: true,
     },
   });

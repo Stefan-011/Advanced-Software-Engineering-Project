@@ -1,60 +1,45 @@
-import { app, BrowserWindow } from "electron";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-import { spawn } from "node:child_process";
-const __dirname$1 = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname$1, "..");
-const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
-let win;
-function createWindow() {
-  const iconPath = VITE_DEV_SERVER_URL ? path.join(process.env.VITE_PUBLIC, "electron-vite.svg") : path.join(RENDERER_DIST, "electron-vite.svg");
-  win = new BrowserWindow({
-    icon: iconPath,
+import { app as r, BrowserWindow as d } from "electron";
+import { fileURLToPath as p } from "node:url";
+import o from "node:path";
+import { spawn as m } from "node:child_process";
+const a = o.dirname(p(import.meta.url));
+process.env.APP_ROOT = o.join(a, "..");
+const t = process.env.VITE_DEV_SERVER_URL, P = o.join(process.env.APP_ROOT, "dist-electron"), c = o.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = t ? o.join(process.env.APP_ROOT, "public") : c;
+let e;
+function l() {
+  const s = t ? o.join(process.env.VITE_PUBLIC, "logo.png") : o.join(c, "logo.png");
+  e = new d({
+    icon: s,
+    minHeight: 800,
+    minWidth: 600,
+    // autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname$1, "preload.js"),
-      nodeIntegration: true
+      preload: o.join(a, "preload.mjs"),
+      nodeIntegration: !0
     }
-  });
-  win.loadURL("http://localhost:3000");
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
-  }
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), e.loadURL("http://localhost:3000"), t ? e.loadURL(t) : e.loadFile(o.join(c, "index.html")), e.webContents.on("did-finish-load", () => {
+    e == null || e.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
 }
-app.whenReady().then(() => {
-  createWindow();
-  const backendPath = path.join(__dirname$1, "../backend/server.js");
-  const server = spawn("node", [backendPath]);
-  server.stdout.on("data", (data) => {
-    console.log(`Server output: ${data}`);
-  });
-  server.stderr.on("data", (data) => {
-    console.error(`Server error: ${data}`);
-  });
-  server.on("close", (code) => {
-    console.log(`Server process exited with code ${code}`);
-  });
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
+r.whenReady().then(() => {
+  l();
+  const s = o.join(a, "../backend/server.js"), i = m("node", [s]);
+  i.stdout.on("data", (n) => {
+    console.log(`Server output: ${n}`);
+  }), i.stderr.on("data", (n) => {
+    console.error(`Server error: ${n}`);
+  }), i.on("close", (n) => {
+    console.log(`Server process exited with code ${n}`);
+  }), r.on("activate", () => {
+    d.getAllWindows().length === 0 && l();
   });
 });
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+r.on("window-all-closed", () => {
+  process.platform !== "darwin" && (r.quit(), e = null);
 });
 export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
+  P as MAIN_DIST,
+  c as RENDERER_DIST,
+  t as VITE_DEV_SERVER_URL
 };

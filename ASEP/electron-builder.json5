@@ -1,9 +1,9 @@
 // @see - https://www.electron.build/configuration/configuration
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "YourAppID",
+  "appId": "ASEPID",
   "asar": true,
-  "productName": "YourAppName",
+  "productName": "ASEP",
   "directories": {
     "output": "release/${version}"
   },
@@ -27,6 +27,7 @@
       }
     ],
     "artifactName": "${productName}-Windows-${version}-Setup.${ext}"
+     "icon": "/logo.png"  
   },
   "nsis": {
     "oneClick": false,

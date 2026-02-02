@@ -4,7 +4,6 @@ import React, { ReactNode } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import { RouterConstants } from "./RoutesConstants";
 import MainLayout from "../MainLayout";
-import TestPage from "../features/test-page/TestPage";
 
 // import Home from "../pages/Home";
 // import About from "../pages/About";
@@ -36,7 +35,6 @@ const RouterProvider: React.FC<RouterProviderProps> = ({ children }) => {
       <Routes>
         <Route path={"/"} element={<MainLayout />}>
           <Route path={RouterConstants.AboutPage} element={<About />} />
-          <Route path={"test-page"} element={<TestPage />} />
           <Route path={RouterConstants.SleepNow} element={<SleepNow />} />
           <Route
             path={RouterConstants.WakeUpPicker}
