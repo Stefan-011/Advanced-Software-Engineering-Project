@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { spawn } from "node:child_process";
+import fs from "fs/promises";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -10,6 +10,19 @@ process.env.APP_ROOT = path.join(__dirname, "..");
 export const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 export const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
+
+const getConfigFilePath = () =>
+  path.join(app.getPath("userData"), "configurationFile.txt");
+
+const ensureConfigFile = async () => {
+  const filePath = getConfigFilePath();
+  try {
+    await fs.access(filePath);
+  } catch {
+    const defaultContent = `TimeToSleep: 8\nSleepCycle: 90\nThemeColor: #212121`;
+    await fs.writeFile(filePath, defaultContent, "utf8");
+  }
+};
 
 process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL
   ? path.join(process.env.APP_ROOT, "public")
@@ -32,7 +45,6 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  win.loadURL("http://localhost:3000");
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -45,31 +57,44 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
-  createWindow();
+ipcMain.handle("read-file", async () => {
+  const filePath = getConfigFilePath();
 
-  const backendPath = path.join(__dirname, "../backend/server.js");
-
-  const server = spawn("node", [backendPath]);
-
-  server.stdout.on("data", (data) => {
-    console.log(`Server output: ${data}`);
-  });
-
-  server.stderr.on("data", (data) => {
-    console.error(`Server error: ${data}`);
-  });
-
-  server.on("close", (code) => {
-    console.log(`Server process exited with code ${code}`);
-  });
-
-  app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
+  try {
+    await ensureConfigFile(); // make sure file exists
+    const data = await fs.readFile(filePath, "utf8");
+    console.log("Read config file:", filePath);
+    console.log(data);
+    return { content: data };
+  } catch (err) {
+    console.error("Failed to read config file:", err);
+    return { error: "Failed to read file", content: "" };
+  }
 });
+
+// Write file handler
+ipcMain.handle(
+  "write-file",
+  async (_event, { TimeToSleep, SleepCycle, ThemeColor }) => {
+    if (TimeToSleep == null || SleepCycle == null || !ThemeColor) {
+      return {
+        error: "Please provide TimeToSleep, SleepCycle, and ThemeColor",
+      };
+    }
+
+    const filePath = getConfigFilePath();
+    const content = `TimeToSleep: ${TimeToSleep}\nSleepCycle: ${SleepCycle}\nThemeColor: ${ThemeColor}`;
+
+    try {
+      await fs.writeFile(filePath, content, "utf8");
+      console.log("Wrote config file:", filePath);
+      return { message: "File created/updated successfully" };
+    } catch (err) {
+      console.error("Failed to write config file:", err);
+      return { error: "Failed to write file" };
+    }
+  },
+);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -77,3 +102,11 @@ app.on("window-all-closed", () => {
     win = null;
   }
 });
+
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});
+
+app.whenReady().then(createWindow);

@@ -48,7 +48,7 @@
     "appId": "com.ASEP.id",
     "productName": "ASEP",
     "directories": {
-      "output": "dist"
+      "output": "dist/build"
     },
     "files": [
       "dist/**/*",

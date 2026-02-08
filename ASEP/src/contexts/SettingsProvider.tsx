@@ -26,12 +26,11 @@ export const SettingsProvider = ({
 }) => {
   const fetchFile = async () => {
     try {
-      const res = await fetch("http://localhost:8080/readfile");
-      const data = await res.json();
+      const data = await window.electronAPI.readFile();
       const _settings = convertFileToSettings(data.content);
       setupSettings(_settings);
     } catch (err) {
-      console.error(err);
+      console.error("Failed to read file via IPC:", err);
     }
   };
   useEffect(() => {

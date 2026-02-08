@@ -33,23 +33,19 @@ const SettingsPage = () => {
 
   const handleSubmit = async () => {
     try {
-      // Build query string
-      const queryParams = new URLSearchParams({
-        TimeToSleep: localTimeToSleep.toString(),
-        SleepCycle: localSleepCycle.toString(),
-        ThemeColor: localThemeColor, // already string
-      }).toString();
+      const response = await window.electronAPI.writeFile({
+        TimeToSleep: localTimeToSleep,
+        SleepCycle: localSleepCycle,
+        ThemeColor: localThemeColor,
+      });
 
-      const response = await fetch(
-        `http://localhost:8080/writefile?${queryParams}`,
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to write file");
+      if (response.error) {
+        throw new Error(response.error);
       }
       window.location.reload();
+      console.log(response.message);
     } catch (error) {
-      console.error(error);
+      console.error("Failed to write file via IPC:", error);
     }
   };
 
