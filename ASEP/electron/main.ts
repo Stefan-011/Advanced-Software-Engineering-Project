@@ -19,7 +19,7 @@ const ensureConfigFile = async () => {
   try {
     await fs.access(filePath);
   } catch {
-    const defaultContent = `TimeToSleep: 8\nSleepCycle: 90\nThemeColor: #212121`;
+    const defaultContent = `TimeToSleep: 15\nSleepCycle: 90\nThemeColor: #212121`;
     await fs.writeFile(filePath, defaultContent, "utf8");
   }
 };
@@ -42,7 +42,7 @@ function createWindow() {
     // autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
-      nodeIntegration: true,
+      nodeIntegration: false,
     },
   });
 

@@ -1,96 +1,72 @@
-import { ipcMain, app, BrowserWindow } from "electron";
-import { fileURLToPath } from "node:url";
-import path from "node:path";
-import fs from "fs/promises";
-const __dirname$1 = path.dirname(fileURLToPath(import.meta.url));
-process.env.APP_ROOT = path.join(__dirname$1, "..");
-const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
-const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
-const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
-const getConfigFilePath = () => path.join(app.getPath("userData"), "configurationFile.txt");
-const ensureConfigFile = async () => {
-  const filePath = getConfigFilePath();
+import { ipcMain as p, app as i, BrowserWindow as m } from "electron";
+import { fileURLToPath as P } from "node:url";
+import e from "node:path";
+import l from "fs/promises";
+const g = e.dirname(P(import.meta.url));
+process.env.APP_ROOT = e.join(g, "..");
+const r = process.env.VITE_DEV_SERVER_URL, F = e.join(process.env.APP_ROOT, "dist-electron"), a = e.join(process.env.APP_ROOT, "dist"), s = () => e.join(i.getPath("userData"), "configurationFile.txt"), R = async () => {
+  const o = s();
   try {
-    await fs.access(filePath);
+    await l.access(o);
   } catch {
-    const defaultContent = `TimeToSleep: 8
+    await l.writeFile(o, `TimeToSleep: 15
 SleepCycle: 90
-ThemeColor: #212121`;
-    await fs.writeFile(filePath, defaultContent, "utf8");
+ThemeColor: #212121`, "utf8");
   }
 };
-process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
-let win;
-function createWindow() {
-  const iconPath = VITE_DEV_SERVER_URL ? path.join(process.env.VITE_PUBLIC, "logo.png") : path.join(RENDERER_DIST, "logo.png");
-  win = new BrowserWindow({
-    icon: iconPath,
+process.env.VITE_PUBLIC = r ? e.join(process.env.APP_ROOT, "public") : a;
+let t;
+function u() {
+  const o = r ? e.join(process.env.VITE_PUBLIC, "logo.png") : e.join(a, "logo.png");
+  t = new m({
+    icon: o,
     minHeight: 800,
     minWidth: 600,
     // autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname$1, "preload.mjs"),
-      nodeIntegration: true
+      preload: e.join(g, "preload.mjs"),
+      nodeIntegration: !1
     }
-  });
-  if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile(path.join(RENDERER_DIST, "index.html"));
-  }
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), r ? t.loadURL(r) : t.loadFile(e.join(a, "index.html")), t.webContents.on("did-finish-load", () => {
+    t == null || t.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
 }
-ipcMain.handle("read-file", async () => {
-  const filePath = getConfigFilePath();
+p.handle("read-file", async () => {
+  const o = s();
   try {
-    await ensureConfigFile();
-    const data = await fs.readFile(filePath, "utf8");
-    console.log("Read config file:", filePath);
-    console.log(data);
-    return { content: data };
-  } catch (err) {
-    console.error("Failed to read config file:", err);
-    return { error: "Failed to read file", content: "" };
+    await R();
+    const n = await l.readFile(o, "utf8");
+    return console.log("Read config file:", o), console.log(n), { content: n };
+  } catch (n) {
+    return console.error("Failed to read config file:", n), { error: "Failed to read file", content: "" };
   }
 });
-ipcMain.handle(
+p.handle(
   "write-file",
-  async (_event, { TimeToSleep, SleepCycle, ThemeColor }) => {
-    if (TimeToSleep == null || SleepCycle == null || !ThemeColor) {
+  async (o, { TimeToSleep: n, SleepCycle: c, ThemeColor: d }) => {
+    if (n == null || c == null || !d)
       return {
         error: "Please provide TimeToSleep, SleepCycle, and ThemeColor"
       };
-    }
-    const filePath = getConfigFilePath();
-    const content = `TimeToSleep: ${TimeToSleep}
-SleepCycle: ${SleepCycle}
-ThemeColor: ${ThemeColor}`;
+    const f = s(), h = `TimeToSleep: ${n}
+SleepCycle: ${c}
+ThemeColor: ${d}`;
     try {
-      await fs.writeFile(filePath, content, "utf8");
-      console.log("Wrote config file:", filePath);
-      return { message: "File created/updated successfully" };
-    } catch (err) {
-      console.error("Failed to write config file:", err);
-      return { error: "Failed to write file" };
+      return await l.writeFile(f, h, "utf8"), console.log("Wrote config file:", f), { message: "File created/updated successfully" };
+    } catch (w) {
+      return console.error("Failed to write config file:", w), { error: "Failed to write file" };
     }
   }
 );
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+i.on("window-all-closed", () => {
+  process.platform !== "darwin" && (i.quit(), t = null);
 });
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+i.on("activate", () => {
+  m.getAllWindows().length === 0 && u();
 });
-app.whenReady().then(createWindow);
+i.whenReady().then(u);
 export {
-  MAIN_DIST,
-  RENDERER_DIST,
-  VITE_DEV_SERVER_URL
+  F as MAIN_DIST,
+  a as RENDERER_DIST,
+  r as VITE_DEV_SERVER_URL
 };
